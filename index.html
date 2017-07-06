@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>erase erased dekoonig</title>
+  <style>
+  html, body {
+    margin:0;
+    cursor: url(https://image.ibb.co/hhvJq5/100891_x.png), auto;
+  }
+  canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+}
+
+</style>
+</head>
+<body>
+<canvas id="viewport" height="817" width="964"></canvas>
+<script>
+const canvas = document.querySelector('#viewport');
+const ctx = canvas.getContext('2d');
+
+make_base();
+
+function make_base()
+{
+  base_image = new Image();
+  base_image.src = 'https://s3-us-west-2.amazonaws.com/sfmomamedia/media/research-projects/downloads/EdeK_98.298.jpg';
+  base_image.onload = function(){
+    ctx.drawImage(base_image, 0, 0, 817, 964);
+  }
+}
+
+canvas.width = 817;
+canvas.height = 964;
+ctx.strokeStyle = '#fff';
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 50;
+
+
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+let direction = true;
+
+function draw(e){
+	if(!isDrawing) return;
+	ctx.beginPath();
+	ctx.moveTo(lastX, lastY);
+	ctx.lineTo(e.offsetX, e.offsetY);
+	ctx.stroke();
+	lastX = e.offsetX;
+	lastY = e.offsetY;
+
+}
+
+canvas.addEventListener('mousedown', (e) => {
+	isDrawing = true;
+	lastX = e.offsetX;
+	lastY = e.offsetY;
+});
+
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseout', () => isDrawing = false);
+
+
+</script>
+
+
+
+<center><img src=""></center>
+</body>
+</html>
